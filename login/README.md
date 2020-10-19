@@ -11,7 +11,7 @@ yarn vue create login
 cd login/
 
 yarn add @vue/cli
-yarn add buefy axios vuex
+yarn add buefy axios vuex vue-router
 yarn vue --version
 yarn serve
 ```

@@ -11,7 +11,10 @@
       
 |
       <router-link to="/register">Register</router-link> |
-      <router-link to="/resources">Resources</router-link>
+     <span v-if="isLoggedIn"> 
+        <router-link to="/resources">Resources</router-link>
+      </span>
+
     </div>
     <router-view/>
   </div>

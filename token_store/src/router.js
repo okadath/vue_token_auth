@@ -6,10 +6,20 @@ import About from './views/About.vue'
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
 import Resource from './components/resources/Resources.vue'
+
 Vue.use(Router)
+
 let router = new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/resources',
+      name: 'resources',
+      component: Resource,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/',
       name: 'home',
@@ -25,14 +35,7 @@ let router = new Router({
       name: 'register',
       component: Register
     },
-    {
-      path: '/resources',
-      name: 'resources',
-      component: Resource,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    
     {
       path: '/about',
       name: 'about',
@@ -42,15 +45,19 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      if (store.getters.isLoggedIn) {
-        next()
-        return
-      }
-      next('/login')
-    } else {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      console.log("store.getters.isLoggedIn");
       next()
+      // .then(() => this.$router.push("/"))
+      return
     }
-  })
+    next('/login')
+  } else {
+    // console.log("store.getters.isLoggedIn");
+    next()
+  }
+})
 
-export default router 
+
+export default router
