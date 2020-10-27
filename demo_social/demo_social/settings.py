@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os,datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'drf_yasg',
+    'user_account',
 ]
 
 
@@ -58,7 +60,31 @@ REST_FRAMEWORK = {
 
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
+# para la creacion de usuarios RESR, r?
+# DJOSER = {
+#   'SERIALIZERS': {
+#     'user_create': 'api.serializers.UserSerializer',
+#     'user': 'api.serializers.UserSerializer'
+#   }
+  # 'CREATE_SESSION_ON_LOGIN': True,
+# }
+# REST_USE_JWT = True
 
+JWT_AUTH = {
+   # 'JWT_RESPONSE_PAYLOAD_HANDLER' :   'todos.utils.custom_jwt_response_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60*24*365*3),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',#podria ser Token pero este viene en POSTMAN :v
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+
+DJOSER = {
+    "SEND_ACTIVATION_EMAIL": True,
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "#/username/reset/confirm/{uid}/{token}",
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://test.localhost/"],
+}
 
 
 MIDDLEWARE = [
@@ -140,3 +166,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')

@@ -99,3 +99,10 @@ new Vue({
 
 Vue.use(Buefy);
 ```
+
+en la api, siempre al cambiar informacion enviara un email, si es con put o patch desactivara la cuenta y hay que reactivarla y ahcer los cambios(con el email lo hace directamente pero no con el username o pass)
+
+al activar la cuenta pasa como token la info la cual se reconfirma en activacion
+ algo similar para username y password
+
+ los campos de set pass y username son para el usuario ya logueado

@@ -13,7 +13,7 @@ django-filter = "*"
 djangorestframework-simplejwt = "*"
 packaging = "*"
 drf-yasg = {extras = ["validation"], version = "*"}
-djangorestframework = "==3.11"
+djangorestframework = "==3.11.1"
 
 [requires]
 python_version = "3.8"
